@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-import { convertPixelToRem } from 'css-blocks-styled-components';
+import { convertPixelToRem, flex } from 'css-blocks-styled-components';
 
 export const Container = styled.div`
   max-width: ${convertPixelToRem(750)};
@@ -37,4 +37,60 @@ export const TasksCategory = styled.button<TasksCategoryProps>`
       color: ${theme['gray-100']};
     }
   `}
+`;
+
+export const EmptyTasks = styled.div`
+  ${flex.middle};
+  flex-direction: column;
+
+  margin-top: ${convertPixelToRem(24)};
+  padding: ${convertPixelToRem(64)} ${convertPixelToRem(24)};
+  border-top: 1px solid ${({ theme }) => theme['gray-400']};
+  border-radius: 8px;
+  color: ${({ theme }) => theme['gray-300']};
+
+  > strong {
+    margin-top: 1rem;
+    margin-bottom: ${convertPixelToRem(4)};
+  }
+`;
+
+export const TasksList = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: ${convertPixelToRem(12)};
+  margin-top: ${convertPixelToRem(24)};
+`;
+
+export const TaskCard = styled.div`
+  display: flex;
+  justify-content: space-between;
+  gap: ${convertPixelToRem(12)};
+
+  padding: 1rem;
+  border: 1px solid ${({ theme }) => theme['gray-400']};
+  border-radius: 8px;
+  background: ${({ theme }) => theme['gray-500']};
+
+  > div {
+    display: flex;
+    gap: ${convertPixelToRem(12)};
+
+    span {
+      font-size: ${convertPixelToRem(14)};
+      color: ${({ theme }) => theme['gray-100']};
+      line-height: 140%;
+    }
+  }
+
+  > button {
+    background: transparent;
+    color: ${({ theme }) => theme['gray-300']};
+    border: 0;
+
+    :hover {
+      transition: color 0.3s;
+      color: ${({ theme }) => theme.danger};
+    }
+  }
 `;

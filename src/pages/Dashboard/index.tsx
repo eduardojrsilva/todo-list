@@ -1,8 +1,25 @@
+import { Trash } from 'phosphor-react';
+import { useState } from 'react';
+import { ReactComponent as ClipboardIcon } from '../../assets/clipboard.svg';
+
 import Header from '../../components/Header';
 import SearchForm from '../../components/SearchForm';
-import { Container, TasksCategory, TasksCategoryContainer } from './styles';
+
+import {
+  Container,
+  EmptyTasks,
+  TaskCard,
+  TasksCategory,
+  TasksCategoryContainer,
+  TasksList,
+} from './styles';
 
 const Dashboard: React.FC = () => {
+  const [tasks, setTasks] = useState<string[]>([
+    'Integer urna interdum massa libero auctor neque turpis turpis semper. Duis vel sed fames integer.',
+    'Integer urna interdum massa libero auctor neque turpis turpis semper. Duis vel sed fames integer.',
+    'Integer urna interdum massa libero auctor neque turpis turpis semper. Duis vel sed fames integer.',
+  ]);
   return (
     <>
       <Header />
@@ -14,10 +31,34 @@ const Dashboard: React.FC = () => {
           <TasksCategory type="button" $variant="created" $amount={5}>
             Tarefas criadas
           </TasksCategory>
+
           <TasksCategory type="button" $variant="done" $amount="3 de 5">
             Concluídas
           </TasksCategory>
         </TasksCategoryContainer>
+
+        {tasks.length === 0 ? (
+          <EmptyTasks>
+            <ClipboardIcon />
+            <strong>Você ainda não tem tarefas cadastradas</strong>
+            <span>Crie taredas e organize seus itens a fazer</span>
+          </EmptyTasks>
+        ) : (
+          <TasksList>
+            {tasks.map((task) => (
+              <TaskCard>
+                <div>
+                  <input type="checkbox" />
+                  <span>{task}</span>
+                </div>
+
+                <button type="button">
+                  <Trash />
+                </button>
+              </TaskCard>
+            ))}
+          </TasksList>
+        )}
       </Container>
     </>
   );
