@@ -1,5 +1,7 @@
+import Header from '../../components/Header';
+
 const Dashboard: React.FC = () => {
-  return <h1>Hello World!</h1>;
+  return <Header />;
 };
 
 export default Dashboard;
