@@ -24,6 +24,7 @@ export const GlobalStyle = createGlobalStyle`
     height: 100%;
   }
   body {
+    background: ${({ theme }) => theme['gray-600']};
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
