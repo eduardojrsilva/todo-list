@@ -53,12 +53,11 @@ const Dashboard: React.FC = () => {
         <SearchForm addTask={handleAddNewTask} />
 
         <TasksCategoryContainer>
-          <TasksCategory type="button" $variant="created" $amount={tasks.length}>
+          <TasksCategory $variant="created" $amount={tasks.length}>
             Tarefas criadas
           </TasksCategory>
 
           <TasksCategory
-            type="button"
             $variant="done"
             $amount={tasks.length ? `${tasksDone} de ${tasks.length}` : 0}
           >
