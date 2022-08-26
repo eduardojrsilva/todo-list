@@ -16,6 +16,7 @@ import {
   TasksCategoryContainer,
   TasksList,
 } from './styles';
+import Paginator from '../../components/Paginator';
 
 const Dashboard: React.FC = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
@@ -74,23 +75,29 @@ const Dashboard: React.FC = () => {
           </EmptyTasks>
         ) : (
           <TasksList>
-            {tasks.map((task) => (
-              <TaskCard key={task.id}>
-                <div>
-                  <input
-                    type="checkbox"
-                    checked={task.done}
-                    onChange={() => handleCheckboxChange(task.id)}
-                  />
+            <Paginator items={tasks}>
+              {(displayTasks) => (
+                <>
+                  {displayTasks.map((task) => (
+                    <TaskCard key={task.id}>
+                      <div>
+                        <input
+                          type="checkbox"
+                          checked={task.done}
+                          onChange={() => handleCheckboxChange(task.id)}
+                        />
 
-                  <TaskDescription $done={task.done}>{task.description}</TaskDescription>
-                </div>
+                        <TaskDescription $done={task.done}>{task.description}</TaskDescription>
+                      </div>
 
-                <button type="button" onClick={() => handleRemoveTask(task.id)}>
-                  <Trash />
-                </button>
-              </TaskCard>
-            ))}
+                      <button type="button" onClick={() => handleRemoveTask(task.id)}>
+                        <Trash />
+                      </button>
+                    </TaskCard>
+                  ))}
+                </>
+              )}
+            </Paginator>
           </TasksList>
         )}
       </Container>
