@@ -74,6 +74,33 @@ export const TaskCard = styled.div`
   > div {
     display: flex;
     gap: ${convertPixelToRem(12)};
+
+    > input[type='checkbox'] {
+      position: relative;
+
+      :after {
+        content: '';
+        position: absolute;
+        left: -3px;
+        width: 18px;
+        height: 18px;
+
+        background: ${({ theme }) => theme['gray-500']};
+        border: 1px solid ${({ theme }) => theme.blue};
+        border-radius: 50%;
+      }
+
+      :checked:after {
+        content: '✓';
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        color: ${({ theme }) => theme.white};
+        background: ${({ theme }) => theme['purple-dark']};
+        border: 1px solid ${({ theme }) => theme['purple-dark']};
+      }
+    }
   }
 
   > button {
