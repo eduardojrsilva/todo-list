@@ -17,9 +17,7 @@ interface TasksCategoryProps {
   $amount: number | string;
 }
 
-export const TasksCategory = styled.button<TasksCategoryProps>`
-  background: transparent;
-  border: 0;
+export const TasksCategory = styled.div<TasksCategoryProps>`
   font-weight: bold;
   font-size: ${convertPixelToRem(14)};
 
