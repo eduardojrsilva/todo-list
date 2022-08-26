@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Select from 'react-select';
 import { convertPixelToRem } from 'css-blocks-styled-components';
 
@@ -44,6 +44,10 @@ function Paginator<Item>({ items, children }: PaginatorProps<Item>): JSX.Element
   const totalCountOfRegisters = items.length;
   const [lastPage, setLastPage] = useState(Math.ceil(totalCountOfRegisters / registersPerPage));
 
+  useEffect(() => {
+    setLastPage(Math.ceil(totalCountOfRegisters / registersPerPage));
+  }, [totalCountOfRegisters, registersPerPage]);
+
   const displayItems = items.slice(
     (currentPage - 1) * registersPerPage,
     currentPage * registersPerPage,
@@ -72,7 +76,7 @@ function Paginator<Item>({ items, children }: PaginatorProps<Item>): JSX.Element
   };
 
   const handlePageUp = (): void => {
-    if (currentPage < Math.ceil(totalCountOfRegisters / registersPerPage)) {
+    if (currentPage < lastPage) {
       onPageChange(currentPage + 1);
     }
   };
