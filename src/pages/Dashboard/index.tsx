@@ -1,30 +1,44 @@
-import { useState, ChangeEvent } from 'react';
+import { useState } from 'react';
 import { Trash } from 'phosphor-react';
 import { ReactComponent as ClipboardIcon } from '../../assets/clipboard.svg';
 
 import Header from '../../components/Header';
 import SearchForm from '../../components/SearchForm';
 
+import { Task } from '../../types/task';
+
 import {
   Container,
   EmptyTasks,
   TaskCard,
+  TaskDescription,
   TasksCategory,
   TasksCategoryContainer,
   TasksList,
 } from './styles';
-import CheckBox from '../../components/Checkbox';
 
 const Dashboard: React.FC = () => {
-  const [tasks, setTasks] = useState<string[]>([
-    'Integer urna interdum massa libero auctor neque turpis turpis semper. Duis vel sed fames integer.',
-    'Integer urna interdum massa libero auctor neque turpis turpis semper. Duis vel sed fames integer.',
-    'Integer urna interdum massa libero auctor neque turpis turpis semper. Duis vel sed fames integer.',
-  ]);
-  const [checked, setChecked] = useState(false);
+  const [tasks, setTasks] = useState<Task[]>([]);
 
-  const handleCheckboxChange = (event: ChangeEvent<HTMLInputElement>): void => {
-    setChecked(event.target.checked);
+  const tasksDone = tasks.reduce((acc, task) => (task.done ? acc + 1 : acc), 0);
+
+  const handleAddNewTask = (task: Task): void => {
+    setTasks((state) => [...state, task]);
+  };
+
+  const handleCheckboxChange = (id: string): void => {
+    setTasks(
+      tasks.map((task) => {
+        if (task.id === id) {
+          return {
+            ...task,
+            done: !task.done,
+          };
+        }
+
+        return task;
+      }),
+    );
   };
 
   return (
@@ -32,14 +46,14 @@ const Dashboard: React.FC = () => {
       <Header />
 
       <Container>
-        <SearchForm />
+        <SearchForm addTask={handleAddNewTask} />
 
         <TasksCategoryContainer>
-          <TasksCategory type="button" $variant="created" $amount={5}>
+          <TasksCategory type="button" $variant="created" $amount={tasks.length}>
             Tarefas criadas
           </TasksCategory>
 
-          <TasksCategory type="button" $variant="done" $amount="3 de 5">
+          <TasksCategory type="button" $variant="done" $amount={`${tasksDone} de ${tasks.length}`}>
             Concluídas
           </TasksCategory>
         </TasksCategoryContainer>
@@ -54,10 +68,15 @@ const Dashboard: React.FC = () => {
         ) : (
           <TasksList>
             {tasks.map((task) => (
-              <TaskCard>
+              <TaskCard key={task.id}>
                 <div>
-                  <input type="checkbox" checked={checked} onChange={handleCheckboxChange} />
-                  <span>{task}</span>
+                  <input
+                    type="checkbox"
+                    checked={task.done}
+                    onChange={() => handleCheckboxChange(task.id)}
+                  />
+
+                  <TaskDescription $done={task.done}>{task.description}</TaskDescription>
                 </div>
 
                 <button type="button">

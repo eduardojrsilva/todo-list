@@ -75,12 +75,6 @@ export const TaskCard = styled.div`
   > div {
     display: flex;
     gap: ${convertPixelToRem(12)};
-
-    span {
-      font-size: ${convertPixelToRem(14)};
-      color: ${({ theme }) => theme['gray-100']};
-      line-height: 140%;
-    }
   }
 
   > button {
@@ -93,4 +87,21 @@ export const TaskCard = styled.div`
       color: ${({ theme }) => theme.danger};
     }
   }
+`;
+
+interface TaskDescriptionProps {
+  $done: boolean;
+}
+
+export const TaskDescription = styled.span<TaskDescriptionProps>`
+  font-size: ${convertPixelToRem(14)};
+  color: ${({ theme }) => theme['gray-100']};
+  line-height: 140%;
+
+  ${({ $done, theme }) =>
+    $done &&
+    css`
+      color: ${theme['gray-300']};
+      text-decoration: line-through;
+    `}
 `;
