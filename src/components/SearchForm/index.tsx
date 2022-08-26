@@ -20,6 +20,8 @@ const SearchForm: React.FC<SearchFormProps> = ({ addTask }) => {
   const handleAddTask = (event: FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
 
+    if (!description) return;
+
     const task = {
       id: uuid(),
       description,
