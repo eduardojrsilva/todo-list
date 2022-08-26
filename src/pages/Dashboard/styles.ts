@@ -4,6 +4,7 @@ import { convertPixelToRem, flex } from 'css-blocks-styled-components';
 export const Container = styled.div`
   max-width: ${convertPixelToRem(750)};
   margin: -24px auto 0;
+  padding-bottom: ${convertPixelToRem(10)};
 `;
 
 export const TasksCategoryContainer = styled.div`
