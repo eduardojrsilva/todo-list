@@ -26,6 +26,10 @@ const Dashboard: React.FC = () => {
     setTasks((state) => [...state, task]);
   };
 
+  const handleRemoveTask = (id: string): void => {
+    setTasks(tasks.filter((task) => task.id !== id));
+  };
+
   const handleCheckboxChange = (id: string): void => {
     setTasks(
       tasks.map((task) => {
@@ -53,7 +57,11 @@ const Dashboard: React.FC = () => {
             Tarefas criadas
           </TasksCategory>
 
-          <TasksCategory type="button" $variant="done" $amount={`${tasksDone} de ${tasks.length}`}>
+          <TasksCategory
+            type="button"
+            $variant="done"
+            $amount={tasks.length ? `${tasksDone} de ${tasks.length}` : 0}
+          >
             Concluídas
           </TasksCategory>
         </TasksCategoryContainer>
@@ -79,7 +87,7 @@ const Dashboard: React.FC = () => {
                   <TaskDescription $done={task.done}>{task.description}</TaskDescription>
                 </div>
 
-                <button type="button">
+                <button type="button" onClick={() => handleRemoveTask(task.id)}>
                   <Trash />
                 </button>
               </TaskCard>

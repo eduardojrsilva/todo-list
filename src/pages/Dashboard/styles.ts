@@ -95,13 +95,16 @@ interface TaskDescriptionProps {
 
 export const TaskDescription = styled.span<TaskDescriptionProps>`
   font-size: ${convertPixelToRem(14)};
-  color: ${({ theme }) => theme['gray-100']};
+
   line-height: 140%;
 
   ${({ $done, theme }) =>
-    $done &&
-    css`
-      color: ${theme['gray-300']};
-      text-decoration: line-through;
-    `}
+    $done
+      ? css`
+          color: ${theme['gray-300']};
+          text-decoration: line-through;
+        `
+      : css`
+          color: ${theme['gray-100']};
+        `}
 `;
