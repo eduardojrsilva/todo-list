@@ -1,5 +1,5 @@
+import { useState, ChangeEvent } from 'react';
 import { Trash } from 'phosphor-react';
-import { useState } from 'react';
 import { ReactComponent as ClipboardIcon } from '../../assets/clipboard.svg';
 
 import Header from '../../components/Header';
@@ -13,6 +13,7 @@ import {
   TasksCategoryContainer,
   TasksList,
 } from './styles';
+import CheckBox from '../../components/Checkbox';
 
 const Dashboard: React.FC = () => {
   const [tasks, setTasks] = useState<string[]>([
@@ -20,6 +21,12 @@ const Dashboard: React.FC = () => {
     'Integer urna interdum massa libero auctor neque turpis turpis semper. Duis vel sed fames integer.',
     'Integer urna interdum massa libero auctor neque turpis turpis semper. Duis vel sed fames integer.',
   ]);
+  const [checked, setChecked] = useState(false);
+
+  const handleCheckboxChange = (event: ChangeEvent<HTMLInputElement>): void => {
+    setChecked(event.target.checked);
+  };
+
   return (
     <>
       <Header />
@@ -40,6 +47,7 @@ const Dashboard: React.FC = () => {
         {tasks.length === 0 ? (
           <EmptyTasks>
             <ClipboardIcon />
+
             <strong>Você ainda não tem tarefas cadastradas</strong>
             <span>Crie taredas e organize seus itens a fazer</span>
           </EmptyTasks>
@@ -48,7 +56,7 @@ const Dashboard: React.FC = () => {
             {tasks.map((task) => (
               <TaskCard>
                 <div>
-                  <input type="checkbox" />
+                  <input type="checkbox" checked={checked} onChange={handleCheckboxChange} />
                   <span>{task}</span>
                 </div>
 
